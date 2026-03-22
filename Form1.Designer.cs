@@ -36,6 +36,14 @@
             this.lblGroupName = new System.Windows.Forms.Label();
             this.txtGroupName = new System.Windows.Forms.TextBox();
             this.textResultGame = new System.Windows.Forms.TextBox();
+            this.txtBoxPlayerInfo = new System.Windows.Forms.TextBox();
+            this.btnEntrarPartida = new System.Windows.Forms.Button();
+            this.txtEntrarID = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtEntrarSenha = new System.Windows.Forms.TextBox();
+            this.lblNomeUsuario = new System.Windows.Forms.Label();
+            this.txtNomeJogador = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnListGame
@@ -72,7 +80,7 @@
             this.listBoxGames.FormattingEnabled = true;
             this.listBoxGames.Location = new System.Drawing.Point(12, 9);
             this.listBoxGames.Name = "listBoxGames";
-            this.listBoxGames.Size = new System.Drawing.Size(180, 264);
+            this.listBoxGames.Size = new System.Drawing.Size(227, 264);
             this.listBoxGames.TabIndex = 4;
             this.listBoxGames.SelectedIndexChanged += new System.EventHandler(this.listBoxGames_SelectedIndexChanged);
             // 
@@ -87,7 +95,7 @@
             // 
             // txtNameGame
             // 
-            this.txtNameGame.Location = new System.Drawing.Point(220, 31);
+            this.txtNameGame.Location = new System.Drawing.Point(376, 35);
             this.txtNameGame.Name = "txtNameGame";
             this.txtNameGame.Size = new System.Drawing.Size(100, 20);
             this.txtNameGame.TabIndex = 6;
@@ -95,7 +103,7 @@
             // lblCreateGameName
             // 
             this.lblCreateGameName.AutoSize = true;
-            this.lblCreateGameName.Location = new System.Drawing.Point(217, 15);
+            this.lblCreateGameName.Location = new System.Drawing.Point(373, 19);
             this.lblCreateGameName.Name = "lblCreateGameName";
             this.lblCreateGameName.Size = new System.Drawing.Size(86, 13);
             this.lblCreateGameName.TabIndex = 7;
@@ -103,7 +111,7 @@
             // 
             // btnCreateGame
             // 
-            this.btnCreateGame.Location = new System.Drawing.Point(220, 279);
+            this.btnCreateGame.Location = new System.Drawing.Point(376, 208);
             this.btnCreateGame.Name = "btnCreateGame";
             this.btnCreateGame.Size = new System.Drawing.Size(92, 50);
             this.btnCreateGame.TabIndex = 8;
@@ -114,7 +122,7 @@
             // lblPassword
             // 
             this.lblPassword.AutoSize = true;
-            this.lblPassword.Location = new System.Drawing.Point(220, 68);
+            this.lblPassword.Location = new System.Drawing.Point(376, 72);
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(41, 13);
             this.lblPassword.TabIndex = 9;
@@ -122,7 +130,7 @@
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(220, 84);
+            this.txtPassword.Location = new System.Drawing.Point(376, 88);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(100, 20);
             this.txtPassword.TabIndex = 10;
@@ -130,7 +138,7 @@
             // lblGroupName
             // 
             this.lblGroupName.AutoSize = true;
-            this.lblGroupName.Location = new System.Drawing.Point(223, 130);
+            this.lblGroupName.Location = new System.Drawing.Point(379, 134);
             this.lblGroupName.Name = "lblGroupName";
             this.lblGroupName.Size = new System.Drawing.Size(82, 13);
             this.lblGroupName.TabIndex = 11;
@@ -138,24 +146,99 @@
             // 
             // txtGroupName
             // 
-            this.txtGroupName.Location = new System.Drawing.Point(220, 146);
+            this.txtGroupName.Location = new System.Drawing.Point(376, 150);
             this.txtGroupName.Name = "txtGroupName";
             this.txtGroupName.Size = new System.Drawing.Size(100, 20);
             this.txtGroupName.TabIndex = 12;
             // 
             // textResultGame
             // 
-            this.textResultGame.Location = new System.Drawing.Point(354, 9);
+            this.textResultGame.Location = new System.Drawing.Point(245, 6);
             this.textResultGame.Multiline = true;
             this.textResultGame.Name = "textResultGame";
-            this.textResultGame.Size = new System.Drawing.Size(293, 264);
+            this.textResultGame.Size = new System.Drawing.Size(94, 264);
             this.textResultGame.TabIndex = 13;
+            // 
+            // txtBoxPlayerInfo
+            // 
+            this.txtBoxPlayerInfo.Location = new System.Drawing.Point(660, 79);
+            this.txtBoxPlayerInfo.Multiline = true;
+            this.txtBoxPlayerInfo.Name = "txtBoxPlayerInfo";
+            this.txtBoxPlayerInfo.Size = new System.Drawing.Size(128, 194);
+            this.txtBoxPlayerInfo.TabIndex = 21;
+            // 
+            // btnEntrarPartida
+            // 
+            this.btnEntrarPartida.Location = new System.Drawing.Point(537, 208);
+            this.btnEntrarPartida.Name = "btnEntrarPartida";
+            this.btnEntrarPartida.Size = new System.Drawing.Size(92, 50);
+            this.btnEntrarPartida.TabIndex = 14;
+            this.btnEntrarPartida.Text = "Entrar na Partida";
+            this.btnEntrarPartida.UseVisualStyleBackColor = true;
+            this.btnEntrarPartida.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // txtEntrarID
+            // 
+            this.txtEntrarID.Location = new System.Drawing.Point(537, 31);
+            this.txtEntrarID.Name = "txtEntrarID";
+            this.txtEntrarID.Size = new System.Drawing.Size(100, 20);
+            this.txtEntrarID.TabIndex = 15;
+            this.txtEntrarID.TextChanged += new System.EventHandler(this.txtEntrarID_TextChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(534, 15);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(69, 13);
+            this.label2.TabIndex = 16;
+            this.label2.Text = "ID da Partida";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(537, 68);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(41, 13);
+            this.label1.TabIndex = 17;
+            this.label1.Text = "Senha:";
+            // 
+            // txtEntrarSenha
+            // 
+            this.txtEntrarSenha.Location = new System.Drawing.Point(537, 84);
+            this.txtEntrarSenha.Name = "txtEntrarSenha";
+            this.txtEntrarSenha.Size = new System.Drawing.Size(100, 20);
+            this.txtEntrarSenha.TabIndex = 18;
+            // 
+            // lblNomeUsuario
+            // 
+            this.lblNomeUsuario.AutoSize = true;
+            this.lblNomeUsuario.Location = new System.Drawing.Point(540, 134);
+            this.lblNomeUsuario.Name = "lblNomeUsuario";
+            this.lblNomeUsuario.Size = new System.Drawing.Size(46, 13);
+            this.lblNomeUsuario.TabIndex = 19;
+            this.lblNomeUsuario.Text = "Usuario:";
+            // 
+            // txtNomeJogador
+            // 
+            this.txtNomeJogador.Location = new System.Drawing.Point(540, 150);
+            this.txtNomeJogador.Name = "txtNomeJogador";
+            this.txtNomeJogador.Size = new System.Drawing.Size(100, 20);
+            this.txtNomeJogador.TabIndex = 20;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.txtBoxPlayerInfo);
+            this.Controls.Add(this.txtNomeJogador);
+            this.Controls.Add(this.lblNomeUsuario);
+            this.Controls.Add(this.txtEntrarSenha);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.txtEntrarID);
+            this.Controls.Add(this.btnEntrarPartida);
             this.Controls.Add(this.textResultGame);
             this.Controls.Add(this.txtGroupName);
             this.Controls.Add(this.lblGroupName);
@@ -170,7 +253,7 @@
             this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.btnListGame);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "3";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -192,6 +275,14 @@
         private System.Windows.Forms.Label lblGroupName;
         private System.Windows.Forms.TextBox txtGroupName;
         private System.Windows.Forms.TextBox textResultGame;
+        private System.Windows.Forms.TextBox txtBoxPlayerInfo;
+        private System.Windows.Forms.Button btnEntrarPartida;
+        private System.Windows.Forms.TextBox txtEntrarID;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtEntrarSenha;
+        private System.Windows.Forms.Label lblNomeUsuario;
+        private System.Windows.Forms.TextBox txtNomeJogador;
     }
 }
 
