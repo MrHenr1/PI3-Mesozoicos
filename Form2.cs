@@ -30,12 +30,12 @@ namespace Mesozoicos {
         }
 
         private void btnIniciarPartida_Click(object sender, EventArgs e) {
-            lblPartidaStatus.Text = Jogo.Iniciar(Convert.ToInt32(this.idjogador), this.idsenha);
-            
-            //Form3 form3 = new Form3();
-            //form3.idjogador = int.Parse(this.idpartida);
-            //form3.idsenha = this.idsenha;
-            //form3.Show();
+            lblPartidaStatus.Text = Jogo.Iniciar(this.idjogador, this.idsenha);
+
+            Form3 form3 = new Form3();
+            form3.idjogador = int.Parse(this.idpartida);
+            form3.idsenha = this.idsenha;
+            form3.Show();
         }
 
         private void btnExibeMao_Click(object sender, EventArgs e) {

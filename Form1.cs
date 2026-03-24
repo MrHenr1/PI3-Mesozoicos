@@ -73,7 +73,7 @@ namespace Mesozoicos {
             string entrarUsuario = txtNomeJogador.Text;
             string playerInfo = Jogo.Entrar(entrarID, entrarUsuario, entrarSenha);
 
-            playerInfo = playerInfo.Substring(0, playerInfo.Length - 1);
+           
             string[] playerInfos = playerInfo.Split(',');
             if (playerInfo == "ERRO: Partida não está aberta") {
                 MessageBox.Show("Essa Partida não existe!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
