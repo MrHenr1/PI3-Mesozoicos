@@ -37,7 +37,7 @@ namespace Mesozoicos {
             form3.idsenha = this.idsenha;
             form3.Show();
         }
-
+                              
         private void btnExibeMao_Click(object sender, EventArgs e) {
             string returned = Jogo.ExibirMao(this.idjogador, this.idsenha);
             txtBoxMaoJogador.Text = returned;

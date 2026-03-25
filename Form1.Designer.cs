@@ -44,15 +44,17 @@
             this.txtEntrarSenha = new System.Windows.Forms.TextBox();
             this.lblNomeUsuario = new System.Windows.Forms.Label();
             this.txtNomeJogador = new System.Windows.Forms.TextBox();
+            this.lblListaDeJogos = new System.Windows.Forms.Label();
+            this.lblStatusCriacao = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnListGame
             // 
-            this.btnListGame.Location = new System.Drawing.Point(12, 279);
+            this.btnListGame.Location = new System.Drawing.Point(12, 322);
             this.btnListGame.Name = "btnListGame";
             this.btnListGame.Size = new System.Drawing.Size(91, 50);
             this.btnListGame.TabIndex = 0;
-            this.btnListGame.Text = "Listar Jogo";
+            this.btnListGame.Text = "Listar Jogos";
             this.btnListGame.UseVisualStyleBackColor = true;
             this.btnListGame.Click += new System.EventHandler(this.btnListGame_Click);
             // 
@@ -78,24 +80,24 @@
             // listBoxGames
             // 
             this.listBoxGames.FormattingEnabled = true;
-            this.listBoxGames.Location = new System.Drawing.Point(12, 9);
+            this.listBoxGames.Location = new System.Drawing.Point(12, 52);
             this.listBoxGames.Name = "listBoxGames";
-            this.listBoxGames.Size = new System.Drawing.Size(227, 264);
+            this.listBoxGames.Size = new System.Drawing.Size(192, 264);
             this.listBoxGames.TabIndex = 4;
             this.listBoxGames.SelectedIndexChanged += new System.EventHandler(this.listBoxGames_SelectedIndexChanged);
             // 
             // lblNameGroup
             // 
             this.lblNameGroup.AutoSize = true;
-            this.lblNameGroup.Location = new System.Drawing.Point(674, 39);
+            this.lblNameGroup.Location = new System.Drawing.Point(671, 31);
             this.lblNameGroup.Name = "lblNameGroup";
             this.lblNameGroup.Size = new System.Drawing.Size(63, 13);
             this.lblNameGroup.TabIndex = 5;
-            this.lblNameGroup.Text = "Mesozoicos";
+            this.lblNameGroup.Text = "Mesozóicos";
             // 
             // txtNameGame
             // 
-            this.txtNameGame.Location = new System.Drawing.Point(376, 35);
+            this.txtNameGame.Location = new System.Drawing.Point(323, 79);
             this.txtNameGame.Name = "txtNameGame";
             this.txtNameGame.Size = new System.Drawing.Size(100, 20);
             this.txtNameGame.TabIndex = 6;
@@ -103,7 +105,7 @@
             // lblCreateGameName
             // 
             this.lblCreateGameName.AutoSize = true;
-            this.lblCreateGameName.Location = new System.Drawing.Point(373, 19);
+            this.lblCreateGameName.Location = new System.Drawing.Point(320, 63);
             this.lblCreateGameName.Name = "lblCreateGameName";
             this.lblCreateGameName.Size = new System.Drawing.Size(86, 13);
             this.lblCreateGameName.TabIndex = 7;
@@ -111,7 +113,7 @@
             // 
             // btnCreateGame
             // 
-            this.btnCreateGame.Location = new System.Drawing.Point(376, 208);
+            this.btnCreateGame.Location = new System.Drawing.Point(323, 228);
             this.btnCreateGame.Name = "btnCreateGame";
             this.btnCreateGame.Size = new System.Drawing.Size(92, 50);
             this.btnCreateGame.TabIndex = 8;
@@ -122,7 +124,7 @@
             // lblPassword
             // 
             this.lblPassword.AutoSize = true;
-            this.lblPassword.Location = new System.Drawing.Point(376, 72);
+            this.lblPassword.Location = new System.Drawing.Point(323, 116);
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(41, 13);
             this.lblPassword.TabIndex = 9;
@@ -130,7 +132,7 @@
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(376, 88);
+            this.txtPassword.Location = new System.Drawing.Point(323, 132);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(100, 20);
             this.txtPassword.TabIndex = 10;
@@ -138,7 +140,7 @@
             // lblGroupName
             // 
             this.lblGroupName.AutoSize = true;
-            this.lblGroupName.Location = new System.Drawing.Point(379, 134);
+            this.lblGroupName.Location = new System.Drawing.Point(320, 166);
             this.lblGroupName.Name = "lblGroupName";
             this.lblGroupName.Size = new System.Drawing.Size(82, 13);
             this.lblGroupName.TabIndex = 11;
@@ -146,16 +148,19 @@
             // 
             // txtGroupName
             // 
-            this.txtGroupName.Location = new System.Drawing.Point(376, 150);
+            this.txtGroupName.Location = new System.Drawing.Point(323, 182);
             this.txtGroupName.Name = "txtGroupName";
+            this.txtGroupName.ReadOnly = true;
             this.txtGroupName.Size = new System.Drawing.Size(100, 20);
             this.txtGroupName.TabIndex = 12;
+            this.txtGroupName.Text = "Mesozóicos";
             // 
             // textResultGame
             // 
-            this.textResultGame.Location = new System.Drawing.Point(245, 6);
+            this.textResultGame.Location = new System.Drawing.Point(223, 57);
             this.textResultGame.Multiline = true;
             this.textResultGame.Name = "textResultGame";
+            this.textResultGame.ReadOnly = true;
             this.textResultGame.Size = new System.Drawing.Size(94, 264);
             this.textResultGame.TabIndex = 13;
             // 
@@ -164,12 +169,13 @@
             this.txtBoxPlayerInfo.Location = new System.Drawing.Point(660, 79);
             this.txtBoxPlayerInfo.Multiline = true;
             this.txtBoxPlayerInfo.Name = "txtBoxPlayerInfo";
+            this.txtBoxPlayerInfo.ReadOnly = true;
             this.txtBoxPlayerInfo.Size = new System.Drawing.Size(128, 194);
             this.txtBoxPlayerInfo.TabIndex = 21;
             // 
             // btnEntrarPartida
             // 
-            this.btnEntrarPartida.Location = new System.Drawing.Point(537, 208);
+            this.btnEntrarPartida.Location = new System.Drawing.Point(473, 228);
             this.btnEntrarPartida.Name = "btnEntrarPartida";
             this.btnEntrarPartida.Size = new System.Drawing.Size(92, 50);
             this.btnEntrarPartida.TabIndex = 14;
@@ -179,7 +185,7 @@
             // 
             // txtEntrarID
             // 
-            this.txtEntrarID.Location = new System.Drawing.Point(537, 31);
+            this.txtEntrarID.Location = new System.Drawing.Point(473, 79);
             this.txtEntrarID.Name = "txtEntrarID";
             this.txtEntrarID.Size = new System.Drawing.Size(100, 20);
             this.txtEntrarID.TabIndex = 15;
@@ -188,7 +194,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(534, 15);
+            this.label2.Location = new System.Drawing.Point(470, 63);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(69, 13);
             this.label2.TabIndex = 16;
@@ -197,7 +203,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(537, 68);
+            this.label1.Location = new System.Drawing.Point(473, 116);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(41, 13);
             this.label1.TabIndex = 17;
@@ -205,7 +211,7 @@
             // 
             // txtEntrarSenha
             // 
-            this.txtEntrarSenha.Location = new System.Drawing.Point(537, 84);
+            this.txtEntrarSenha.Location = new System.Drawing.Point(473, 132);
             this.txtEntrarSenha.Name = "txtEntrarSenha";
             this.txtEntrarSenha.Size = new System.Drawing.Size(100, 20);
             this.txtEntrarSenha.TabIndex = 18;
@@ -213,7 +219,7 @@
             // lblNomeUsuario
             // 
             this.lblNomeUsuario.AutoSize = true;
-            this.lblNomeUsuario.Location = new System.Drawing.Point(540, 134);
+            this.lblNomeUsuario.Location = new System.Drawing.Point(473, 166);
             this.lblNomeUsuario.Name = "lblNomeUsuario";
             this.lblNomeUsuario.Size = new System.Drawing.Size(46, 13);
             this.lblNomeUsuario.TabIndex = 19;
@@ -221,16 +227,36 @@
             // 
             // txtNomeJogador
             // 
-            this.txtNomeJogador.Location = new System.Drawing.Point(540, 150);
+            this.txtNomeJogador.Location = new System.Drawing.Point(473, 182);
             this.txtNomeJogador.Name = "txtNomeJogador";
             this.txtNomeJogador.Size = new System.Drawing.Size(100, 20);
             this.txtNomeJogador.TabIndex = 20;
+            // 
+            // lblListaDeJogos
+            // 
+            this.lblListaDeJogos.AutoSize = true;
+            this.lblListaDeJogos.Location = new System.Drawing.Point(12, 31);
+            this.lblListaDeJogos.Name = "lblListaDeJogos";
+            this.lblListaDeJogos.Size = new System.Drawing.Size(77, 13);
+            this.lblListaDeJogos.TabIndex = 22;
+            this.lblListaDeJogos.Text = "Lista De Jogos";
+            // 
+            // lblStatusCriacao
+            // 
+            this.lblStatusCriacao.AutoSize = true;
+            this.lblStatusCriacao.Location = new System.Drawing.Point(220, 36);
+            this.lblStatusCriacao.Name = "lblStatusCriacao";
+            this.lblStatusCriacao.Size = new System.Drawing.Size(91, 13);
+            this.lblStatusCriacao.TabIndex = 23;
+            this.lblStatusCriacao.Text = "Status de Criação";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lblStatusCriacao);
+            this.Controls.Add(this.lblListaDeJogos);
             this.Controls.Add(this.txtBoxPlayerInfo);
             this.Controls.Add(this.txtNomeJogador);
             this.Controls.Add(this.lblNomeUsuario);
@@ -283,6 +309,8 @@
         private System.Windows.Forms.TextBox txtEntrarSenha;
         private System.Windows.Forms.Label lblNomeUsuario;
         private System.Windows.Forms.TextBox txtNomeJogador;
+        private System.Windows.Forms.Label lblListaDeJogos;
+        private System.Windows.Forms.Label lblStatusCriacao;
     }
 }
 
