@@ -14,6 +14,8 @@ namespace Mesozoicos {
         }
 
         private void btnListGame_Click(object sender, EventArgs e) {
+
+            listBoxGames.Items.Clear();
            string retuned = Jogo.ListarPartidas("T");
             retuned = retuned.Replace("\r", "");
 
@@ -67,12 +69,16 @@ namespace Mesozoicos {
             string playerInfo = Jogo.Entrar(entrarID, entrarUsuario, entrarSenha);
 
            
-            string[] playerInfos = playerInfo.Split(',');
-            if (playerInfo == "ERRO: Partida não está aberta") {
-                MessageBox.Show("Essa Partida não existe!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            
+
+            if (playerInfo.StartsWith("ERRO"))
+            {
+                MessageBox.Show(playerInfo, "Erro ao realizar a jogada!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
-            else {
-                txtBoxPlayerInfo.Text = "ID:" + playerInfos[0] + "\n" + "Senha:" + playerInfos[1];
+            string[] playerInfos = playerInfo.Split(',');
+
+            txtBoxPlayerInfo.Text = "ID:" + playerInfos[0] + "\n" + "Senha:" + playerInfos[1];
                 
                 Form2 form2 = new Form2();
                 form2.idjogador = int.Parse(playerInfos[0]);
@@ -80,7 +86,7 @@ namespace Mesozoicos {
                 form2.idpartida = Convert.ToString(entrarID);
                 form2.Atualizartela();
                 form2.Show();
-            }
+  
         }
 
         private void txtEntrarID_TextChanged(object sender, EventArgs e) {

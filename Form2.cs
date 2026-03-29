@@ -54,13 +54,10 @@ namespace Mesozoicos {
             form3.idPlayerDiceSelected = gamesInfos[0];
             form3.diceSide = gamesInfos[1];
             form3.idGame = this.idpartida;
+            form3.AtualizarTela();
 
             form3.Show();
         }
                               
-        private void btnExibeMao_Click(object sender, EventArgs e) {
-            string returned = Jogo.ExibirMao(this.idjogador, this.idsenha);
-            txtBoxMaoJogador.Text = returned;
-        }
     }
 }
