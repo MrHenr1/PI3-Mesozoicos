@@ -76,16 +76,51 @@ namespace Mesozoicos {
         
         private void btnExibeMao_Click(object sender, EventArgs e) {
             string returned = Jogo.ExibirMao(this.idjogador, this.idsenha);
-            txtBoxMaoJogador.Text = returned;
+
+            returned = returned.Replace("\r", "");
+
+            string[] dinossauros = returned.Split('\n');
+
 
             string playerName = getUsernameById(this.idGame, Convert.ToString(this.idjogador));
             lblPlayerDiceData.Text = playerName;
+
+            for (int i = 0; i < dinossauros.Length; i++) {
+                lstBoxExibeMao.Items.Add(dinossauros[i]);
+            }
 
         }
 
         private void btnUpdateScreen_Click(object sender, EventArgs e)
         {
             AtualizarTela();
+        }
+
+        private void btnExibeCercados_Click(object sender, EventArgs e) {
+            string returned = Jogo.ListarCercados();
+
+            returned = returned.Replace("\r", "");
+
+            string[] cercados = returned.Split('\n');
+
+            foreach (var cercado in cercados) {
+                string[] CercadosInfos = cercado.Split(',');
+                lstBoxCercados.Items.Add(CercadosInfos[0]);
+            }
+            return;
+        }
+
+        private void btnLancaJogada_Click(object sender, EventArgs e) {
+            string dinossauroJoga = txtBoxDinossauros.Text;
+            string cercadoJoga = txtBoxCercado.Text;
+            string gameReturn = Jogo.Jogar(idjogador,idsenha,dinossauroJoga,cercadoJoga);
+            lblResulta.Text = gameReturn;
+            if (gameReturn.StartsWith("ERRO")) {
+                MessageBox.Show(gameReturn, "Erro ao realizar a jogada!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+
         }
     }
 }
