@@ -68,6 +68,7 @@ namespace Mesozoicos
             game.idPlayerDiceSelected = idPlayerDice;
             game.diceSide = diceFace;
             game.idGame = this.idpartida;
+            game.isBot = chkBotMode.Checked;
             game.AtualizarTela();
             game.Show();
         }

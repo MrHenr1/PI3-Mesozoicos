@@ -1,4 +1,4 @@
-# Mesozóicos - Draftosaurus
+# Mesozóicos — Draftosaurus
 
 Jogo Draftosaurus desenvolvido em C# Windows Forms (.NET Framework 4.8) para o Projeto Integrador III.
 
@@ -6,12 +6,27 @@ O projeto utiliza a DLL `DraftServer.dll` para comunicação com o servidor do j
 
 ## Estrutura
 
-- **Form1** - Lobby (listar, criar e entrar em partidas)
-- **Form2** - Sala de espera (listar jogadores e iniciar partida)
-- **Form3** - Tela principal do jogo (mão, cercados, jogadas)
-- **Tabuleiro** - Visualização do tabuleiro (meu e dos oponentes)
-- **GameService** - Classe utilitária com métodos compartilhados
-- **ThemeHelper** - Tema visual do jogo
+- **Lobby** — listar, criar e entrar em partidas
+- **WaitingRoom** — sala de espera, listar jogadores e iniciar partida
+- **Game** — tela principal do jogo (mão, cercados, histórico, jogadas)
+- **Tabuleiro** — visualização gráfica do tabuleiro próprio e dos oponentes
+- **Resultado** — tela de resultado ao fim da partida
+- **GameService** — acesso centralizado aos dados do servidor (mão, tabuleiro, turno, partida)
+- **BotScoring** — pontuação marginal por cercado e fatores de confiança por turno
+- **BotStrategy** — algoritmo de decisão do bot (Minimax Depth-1 com denial)
+- **ThemeHelper** — tema visual da aplicação
+
+## Bot Estratégico
+
+O bot utiliza um algoritmo **Minimax de profundidade 1** adaptado para Draftosaurus:
+
+```
+valor_líquido = meu_ganho - melhor_ganho_do_adversário_com_o_que_eu_passo
+```
+
+A cada turno, o bot avalia todas as combinações possíveis de dino e cercado, considera o que passará ao adversário, e escolhe a jogada com maior valor líquido. A estratégia varia entre Rodada 1 (fundação) e Rodada 2 (finalização), com fatores de confiança distintos por cercado.
+
+Para detalhes completos do algoritmo, ver [`STRATEGY.md`](STRATEGY.md).
 
 ## Como rodar
 

@@ -20,18 +20,19 @@ namespace Mesozoicos
         // Cache das imagens dos dinos (cor -> imagem) - case insensitive
         private Dictionary<string, Image> dinoImages = new Dictionary<string, Image>(StringComparer.OrdinalIgnoreCase);
 
-        // Zonas dos cercados: retangulos (x%, y%, largura%, altura%) em cima do tabuleiro
-        // Layout: 3 linhas x 3 colunas seguindo o board real
+        // Zonas dos cercados: posicao em % da imagem (x, y, largura, altura).
+        // Ajuste os valores abaixo para alinhar as caixinhas com as zonas do tabuleiro.
+        // Dica: x=0.0 = borda esquerda, x=1.0 = borda direita; mesmo raciocinio para y.
         private static readonly Dictionary<string, RectangleF> cercadoZones = new Dictionary<string, RectangleF>(StringComparer.OrdinalIgnoreCase)
         {
             //                          x%     y%     w%     h%
-            {"FI", new RectangleF(0.02f, 0.02f, 0.38f, 0.30f)},  // Floresta Igualdade - cima esq (grande)
-            {"RS", new RectangleF(0.78f, 0.02f, 0.20f, 0.15f)},  // Rei da Selva - cima dir (pequeno)
-            {"MT", new RectangleF(0.02f, 0.34f, 0.28f, 0.22f)},  // Mata Tripla - meio esq
-            {"RI", new RectangleF(0.35f, 0.34f, 0.30f, 0.22f)},  // Rio - centro
-            {"CD", new RectangleF(0.55f, 0.18f, 0.40f, 0.32f)},  // Campina Diferença - meio dir (grande)
-            {"PA", new RectangleF(0.02f, 0.58f, 0.38f, 0.30f)},  // Pradaria Amor - baixo esq (grande)
-            {"IS", new RectangleF(0.65f, 0.65f, 0.25f, 0.20f)},  // Ilha Solitária - baixo dir (pequeno)
+            {"FI", new RectangleF(0.02f, 0.02f, 0.38f, 0.30f)},  // Floresta Igualdade
+            {"RS", new RectangleF(0.78f, 0.02f, 0.20f, 0.15f)},  // Rei da Selva
+            {"MT", new RectangleF(0.02f, 0.34f, 0.28f, 0.22f)},  // Mata Tripla
+            {"RI", new RectangleF(0.35f, 0.34f, 0.30f, 0.22f)},  // Rio
+            {"CD", new RectangleF(0.55f, 0.18f, 0.40f, 0.32f)},  // Campina Diferença
+            {"PA", new RectangleF(0.02f, 0.58f, 0.38f, 0.30f)},  // Pradaria Amor
+            {"IS", new RectangleF(0.65f, 0.65f, 0.25f, 0.20f)},  // Ilha Solitária
         };
 
         public Tabuleiro()
@@ -173,7 +174,7 @@ namespace Mesozoicos
             boardData.Clear();
             try
             {
-                boardData = GameService.BuildBoardFromTurns(int.Parse(idGame), opponentId);
+                boardData = GameService.GetBoardStateOponente(opponentId);
                 string opponentName = selected.Substring(0, selected.IndexOf(" (ID:"));
                 lblInfo.Text = "Tabuleiro de " + opponentName + " - " + boardData.Count + " posições";
                 lblJogadorAtual.Text = opponentName;
@@ -205,6 +206,7 @@ namespace Mesozoicos
                 int imgY = (panelH - imgH) / 2;
 
                 g.DrawImage(boardImage, imgX, imgY, imgW, imgH);
+                DrawZoneOverlays(g, imgX, imgY, imgW, imgH);
                 DrawDinosaurs(g, imgX, imgY, imgW, imgH);
             }
             else
@@ -213,6 +215,31 @@ namespace Mesozoicos
             }
 
             // Lista textual eh atualizada em CarregarMeuTabuleiro/cmbOponentes
+        }
+
+        private void DrawZoneOverlays(Graphics g, int imgX, int imgY, int imgW, int imgH)
+        {
+            foreach (var kvp in cercadoZones)
+            {
+                var zone = kvp.Value;
+                int zX = imgX + (int)(zone.X * imgW);
+                int zY = imgY + (int)(zone.Y * imgH);
+                int zW = (int)(zone.Width * imgW);
+                int zH = (int)(zone.Height * imgH);
+
+                using (var fill = new SolidBrush(Color.FromArgb(50, 255, 255, 255)))
+                    g.FillRectangle(fill, zX, zY, zW, zH);
+
+                using (var border = new Pen(Color.FromArgb(160, 255, 255, 255), 1.5f))
+                {
+                    border.DashStyle = DashStyle.Dash;
+                    g.DrawRectangle(border, zX, zY, zW, zH);
+                }
+
+                using (var font = new Font("Segoe UI", 7f, FontStyle.Bold))
+                using (var labelBrush = new SolidBrush(Color.FromArgb(200, 255, 255, 255)))
+                    g.DrawString(kvp.Key, font, labelBrush, zX + 3, zY + 2);
+            }
         }
 
         private void DrawDinosaurs(Graphics g, int imgX, int imgY, int imgW, int imgH)
@@ -243,20 +270,9 @@ namespace Mesozoicos
                 int zoneW = (int)(zone.Width * imgW);
                 int zoneH = (int)(zone.Height * imgH);
 
-                // Conta total de dinos nesse cercado
-                int totalDinos = 0;
-                foreach (var entry in group.Value)
-                {
-                    int q = 1;
-                    if (entry.Length >= 5) int.TryParse(entry[4], out q);
-                    totalDinos += q;
-                }
-
-                // Posiciona dinos em linha dentro da zona, centralizados
+                // Grid: quantos cabem por linha na largura da zona
                 int spacing = dinoSize + 4;
-                int totalWidth = totalDinos * spacing;
-                int startX = zoneX + (zoneW - totalWidth) / 2;
-                int centerY = zoneY + zoneH / 2;
+                int maxCols = Math.Max(1, (zoneW - 8) / spacing);
 
                 int dinoIndex = 0;
                 foreach (var entry in group.Value)
@@ -267,14 +283,14 @@ namespace Mesozoicos
 
                     for (int i = 0; i < qty; i++)
                     {
-                        int cx = startX + dinoIndex * spacing + dinoSize / 2;
-                        int cy = centerY;
+                        int col = dinoIndex % maxCols;
+                        int row = dinoIndex / maxCols;
+                        int drawX = zoneX + 4 + col * spacing;
+                        int drawY = zoneY + 14 + row * spacing; // 14px para o label do codigo
 
                         if (dinoImg != null)
                         {
-                            g.DrawImage(dinoImg,
-                                cx - dinoSize / 2, cy - dinoSize / 2,
-                                dinoSize, dinoSize);
+                            g.DrawImage(dinoImg, drawX, drawY, dinoSize, dinoSize);
                         }
                         else
                         {
@@ -282,8 +298,8 @@ namespace Mesozoicos
                             using (var brush = new SolidBrush(dinoColor))
                             using (var pen = new Pen(Color.FromArgb(40, 20, 5), 2))
                             {
-                                g.FillEllipse(brush, cx - dinoSize / 2, cy - dinoSize / 2, dinoSize, dinoSize);
-                                g.DrawEllipse(pen, cx - dinoSize / 2, cy - dinoSize / 2, dinoSize, dinoSize);
+                                g.FillEllipse(brush, drawX, drawY, dinoSize, dinoSize);
+                                g.DrawEllipse(pen, drawX, drawY, dinoSize, dinoSize);
                             }
                         }
                         dinoIndex++;

@@ -8,16 +8,14 @@ namespace Mesozoicos
 {
     public static class GameService
     {
-        // ==================== HEADER PADRAO ====================
-
+        // header
         public static void AplicarHeader(Form form, Label lblVersion, Label lblGrupo)
         {
             lblVersion.Text = "v" + Jogo.versao;
             lblGrupo.Text = "Mesozóicos";
         }
 
-        // ==================== TABULEIRO OPONENTE ====================
-
+        // tabuleiro oponente
         public static List<string[]> GetBoardStateOponente(int idJogador)
         {
             var result = new List<string[]>();
@@ -48,8 +46,7 @@ namespace Mesozoicos
             return response.Split('\n');
         }
 
-        // ==================== DINOSSAUROS ====================
-
+        // dinossauros
         public static string GetDinossauroName(string idDinossauro)
         {
             string[] dinossauros = ParseResponse(Jogo.ListarDinossauros(true));
@@ -98,8 +95,7 @@ namespace Mesozoicos
             return Color.Gray;
         }
 
-        // ==================== CERCADOS ====================
-
+        // cercados
         public static string GetCercadoName(string idCercado)
         {
             string[] cercados = ParseResponse(Jogo.ListarCercados());
@@ -135,8 +131,7 @@ namespace Mesozoicos
             return result;
         }
 
-        // ==================== JOGADORES ====================
-
+        // jogadores
         public static string GetUsernameById(string idJogo, string idPlayer)
         {
             string[] players = ParseResponse(Jogo.ListarJogadores(int.Parse(idJogo)));
@@ -161,8 +156,7 @@ namespace Mesozoicos
             return result;
         }
 
-        // ==================== DADO ====================
-
+        // dado
         public static string GetDiceSideName(string diceSideCode)
         {
             string[] sides = ParseResponse(Jogo.ListarFacesDado());
@@ -174,8 +168,7 @@ namespace Mesozoicos
             return null;
         }
 
-        // ==================== PARTIDA ====================
-
+        // partida
         public static string[] GetGameStatus(string idGame)
         {
             string atualGame = Jogo.VerificarPartida(int.Parse(idGame));
@@ -186,8 +179,7 @@ namespace Mesozoicos
             return atualGame.Split(',');
         }
 
-        // ==================== VALIDACAO DE JOGADA ====================
-
+        // validação de jogada por dado
         private static readonly Dictionary<string, List<string>> CercadosDadoValido = new Dictionary<string, List<string>>()
         {
             {"FI", new List<string>(){"FL", "AL", "VZ", "TI" }},
@@ -195,7 +187,8 @@ namespace Mesozoicos
             {"RS", new List<string>(){"FL", "WC", "VZ", "TI" }},
             {"CD", new List<string>(){"PR", "WC", "VZ", "TI" }},
             {"PA", new List<string>(){"PR", "AL", "VZ", "TI" }},
-            {"IS", new List<string>(){"PR", "WC", "VZ", "TI" }}
+            {"IS", new List<string>(){"PR", "WC", "VZ", "TI" }},
+            {"RI", new List<string>(){"FL", "PR", "AL", "WC", "VZ", "TI" }}
         };
 
         public static bool IsValidPlay(string cercadoCode, string diceSideCode)
@@ -205,8 +198,7 @@ namespace Mesozoicos
             return CercadosDadoValido[cercadoCode].Contains(diceSideCode);
         }
 
-        // ==================== MAO DO JOGADOR ====================
-
+        // mão do jogador
         public static List<string[]> GetPlayerHand(int idJogador, string senha)
         {
             var result = new List<string[]>();
@@ -227,8 +219,7 @@ namespace Mesozoicos
             return result;
         }
 
-        // ==================== TABULEIRO ====================
-
+        // tabuleiro próprio
         public static List<string[]> GetBoardState(int idJogador, string senha)
         {
             var result = new List<string[]>();
@@ -250,16 +241,13 @@ namespace Mesozoicos
             return result;
         }
 
-        // ==================== HISTORICO ====================
-
+        // histórico
         public static string GetHistory(int idPartida)
         {
             return Jogo.ListarHistorico(idPartida);
         }
 
-        // ==================== VERIFICAR TURNO ====================
-
-        // Retorna: status turno, jogador dado, dado sorteado + lista jogadas
+        // turno
         public static string GetTurnInfoRaw(int idPartida)
         {
             return Jogo.VerificarTurno(idPartida);
@@ -270,23 +258,49 @@ namespace Mesozoicos
             return Jogo.VerificarTurno(idPartida, turno);
         }
 
-        // ==================== BUILD TABULEIRO OPONENTE VIA TURNOS ====================
+        // bot
+        public static bool VerificarVez(string idPartida, int idJogador)
+        {
+            string turnInfo = GetTurnInfoRaw(int.Parse(idPartida));
+            if (string.IsNullOrEmpty(turnInfo)) return false;
 
-        // Constroi o tabuleiro de um oponente percorrendo todos os turnos fechados
-        // Retorna lista de [cercadoCode, cercadoName, dinoCode, dinoName, quantidade]
+            string[] lines = ParseResponse(turnInfo);
+            if (lines.Length == 0) return false;
+
+            string myId = Convert.ToString(idJogador);
+            for (int i = 1; i < lines.Length; i++)
+            {
+                if (string.IsNullOrWhiteSpace(lines[i])) continue;
+                string[] parts = lines[i].Split(',');
+                if (parts.Length >= 1 && parts[0].Trim() == myId)
+                    return false;
+            }
+
+            return true;
+        }
+
+        public static List<string> GetCercadosValidosParaDado(string diceSideCode, bool isOwnerDice)
+        {
+            var validos = new List<string>();
+            foreach (var kvp in CercadosDadoValido)
+            {
+                if (isOwnerDice || kvp.Value.Contains(diceSideCode))
+                    validos.Add(kvp.Key);
+            }
+            return validos;
+        }
+
+        // reconstrói o tabuleiro do oponente a partir dos turnos fechados
         public static List<string[]> BuildBoardFromTurns(int idPartida, int idOponente)
         {
-            // Pegar turno atual
             string[] gameInfo = GetGameStatus(Convert.ToString(idPartida));
             if (gameInfo == null || gameInfo.Length < 2) return new List<string[]>();
 
             int turnoAtual;
             if (!int.TryParse(gameInfo[1], out turnoAtual)) return new List<string[]>();
 
-            // Dicionario: cercadoCode -> (dinoCode -> quantidade)
             var board = new Dictionary<string, Dictionary<string, int>>();
 
-            // Percorre todos os turnos fechados (1 ate turnoAtual-1)
             for (int t = 1; t < turnoAtual; t++)
             {
                 try
@@ -296,21 +310,16 @@ namespace Mesozoicos
 
                     string[] lines = ParseResponse(turnData);
 
-                    // Primeira linha = header (status, jogador dado, dado)
-                    // Linhas seguintes = jogadas (formato depende da DLL)
                     for (int i = 1; i < lines.Length; i++)
                     {
                         if (string.IsNullOrWhiteSpace(lines[i])) continue;
                         string[] parts = lines[i].Split(',');
 
-                        // Tenta encontrar o jogador nessa jogada
-                        // Formato esperado: idJogador, dinossauro, cercado (ou variacao)
                         if (parts.Length < 3) continue;
 
                         string jogadorId = parts[0].Trim();
                         if (jogadorId != Convert.ToString(idOponente)) continue;
 
-                        // Formato: idJogador, codigoDinossauro, codigoCercado
                         string dinoCode = parts[1].Trim();
                         string cercadoCode = parts.Length >= 3 ? parts[2].Trim() : "??";
 
@@ -326,7 +335,6 @@ namespace Mesozoicos
                 catch { continue; }
             }
 
-            // Converte pra lista no formato padrao
             var result = new List<string[]>();
             foreach (var cercado in board)
             {

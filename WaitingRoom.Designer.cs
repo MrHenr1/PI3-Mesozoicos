@@ -29,6 +29,7 @@ namespace Mesozoicos
             this.lstJogadores = new System.Windows.Forms.ListBox();
             this.btnListarJogadores = new System.Windows.Forms.Button();
             this.btnIniciarPartida = new System.Windows.Forms.Button();
+            this.chkBotMode = new System.Windows.Forms.CheckBox();
             this.grpPlayerInfo.SuspendLayout();
             this.grpPlayers.SuspendLayout();
             this.SuspendLayout();
@@ -72,9 +73,10 @@ namespace Mesozoicos
             this.grpPlayerInfo.Controls.Add(this.lblSenhaVal);
             this.grpPlayerInfo.Controls.Add(this.lblIdPartida);
             this.grpPlayerInfo.Controls.Add(this.lblIdPartidaVal);
+            this.grpPlayerInfo.Controls.Add(this.chkBotMode);
             this.grpPlayerInfo.Location = new System.Drawing.Point(15, 60);
             this.grpPlayerInfo.Name = "grpPlayerInfo";
-            this.grpPlayerInfo.Size = new System.Drawing.Size(350, 140);
+            this.grpPlayerInfo.Size = new System.Drawing.Size(350, 175);
             this.grpPlayerInfo.TabIndex = 0;
             this.grpPlayerInfo.TabStop = false;
             this.grpPlayerInfo.Text = "Suas Informações";
@@ -133,7 +135,7 @@ namespace Mesozoicos
             this.grpPlayers.Controls.Add(this.lstJogadores);
             this.grpPlayers.Controls.Add(this.btnListarJogadores);
             this.grpPlayers.Controls.Add(this.btnIniciarPartida);
-            this.grpPlayers.Location = new System.Drawing.Point(15, 210);
+            this.grpPlayers.Location = new System.Drawing.Point(15, 245);
             this.grpPlayers.Name = "grpPlayers";
             this.grpPlayers.Size = new System.Drawing.Size(550, 300);
             this.grpPlayers.TabIndex = 1;
@@ -178,6 +180,16 @@ namespace Mesozoicos
             this.btnIniciarPartida.Text = "Iniciar Partida";
             this.btnIniciarPartida.UseVisualStyleBackColor = false;
             this.btnIniciarPartida.Click += new System.EventHandler(this.btnIniciarPartida_Click);
+            // chkBotMode
+            this.chkBotMode.AutoSize = true;
+            this.chkBotMode.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.chkBotMode.ForeColor = System.Drawing.Color.FromArgb(60, 35, 10);
+            this.chkBotMode.Location = new System.Drawing.Point(12, 125);
+            this.chkBotMode.Name = "chkBotMode";
+            this.chkBotMode.Size = new System.Drawing.Size(200, 23);
+            this.chkBotMode.TabIndex = 6;
+            this.chkBotMode.Text = "Jogar como Bot";
+            this.chkBotMode.UseVisualStyleBackColor = true;
             // lblStatus
             this.lblStatus = new System.Windows.Forms.Label();
             this.lblStatus.AutoSize = true;
@@ -193,7 +205,7 @@ namespace Mesozoicos
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(27, 67, 50);
             this.ForeColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(580, 530);
+            this.ClientSize = new System.Drawing.Size(580, 565);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -229,5 +241,6 @@ namespace Mesozoicos
         private System.Windows.Forms.Button btnListarJogadores;
         private System.Windows.Forms.Button btnIniciarPartida;
         private System.Windows.Forms.Label lblStatus;
+        private System.Windows.Forms.CheckBox chkBotMode;
     }
 }
