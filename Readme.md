@@ -36,6 +36,6 @@ Para detalhes completos do algoritmo, ver [`STRATEGY.md`](STRATEGY.md).
 
 ## Autores
 
-- [@x0r1c](https://www.linkedin.com/in/x0r1c/)
+- [@MrHenr1](https://www.linkedin.com/in/x0r1c/)
 - [@cauacarvalho](https://www.linkedin.com/in/cauacarvalho97/)
 - [@rp11silva](https://www.linkedin.com/in/rafael-pascual-da-silva-b895bb3b0/)
